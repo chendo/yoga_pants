@@ -1,6 +1,14 @@
 # YogaPants
 
-TODO: Write a gem description
+A lightweight ElasticSearch ruby gem.
+
+## Goals
+
+* Super light-weight, super flexible
+* No DSL for queries; only hashes
+* Bulk indexing
+* Threadsafe
+* A solid base to build more complex ES libraries on top of.
 
 ## Installation
 
