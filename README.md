@@ -8,6 +8,7 @@ A lightweight ElasticSearch ruby gem.
 * No DSL for queries; only hashes
 * Bulk indexing
 * Threadsafe
+* Handle a list of servers and fallback to other ones
 * A solid base to build more complex ES libraries on top of.
 
 ## Installation
