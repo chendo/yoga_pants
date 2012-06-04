@@ -52,4 +52,20 @@ module YogaPants
     end
 
   end
+
+  describe "network-related failures" do
+    let(:host) { "http://localhost:9200" }
+    subject do
+      Client.new(host)
+    end
+
+    context "connection refused" do
+      let(:host) { "http://localhost:1" } # Unlikely to be anything running on this port
+
+      it "raises an RequestError" do
+        expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection refused to http://localhost:1")
+      end
+    end
+
+  end
 end

@@ -12,12 +12,13 @@ module YogaPants
 
     class HTTPError < RuntimeError
       attr_reader :response
-      def initialize(response)
+      def initialize(message, response = nil)
         @response = response
-        super("Error performing HTTP request: #{response.status_code} #{response.reason}")
+        super(message)
       end
 
       def body
+        return nil if response.nil?
         @body ||= begin
           MultiJson.load(response.body)
         rescue MultiJson::DecodeError
@@ -34,8 +35,10 @@ module YogaPants
     # Body can be a string or hash
 
     def get(path, args = {})
-      parse_arguments_and_handle_response(args) do |query_string, body|
-        http.get(url_for(path), :query => query_string, :body => body)
+      with_error_handling do
+        parse_arguments_and_handle_response(args) do |query_string, body|
+          http.get(url_for(path), :query => query_string, :body => body)
+        end
       end
     end
 
@@ -58,8 +61,10 @@ module YogaPants
     end
 
     def head(path, args = {})
-      query_string, _ = parse_arguments(args)
-      http.head(url_for(path), :query => query_string)
+      with_error_handling do
+        query_string, _ = parse_arguments(args)
+        http.head(url_for(path), :query => query_string)
+      end
     end
 
     private
@@ -76,12 +81,20 @@ module YogaPants
       when 200..299
         MultiJson.load(response.body)
       else
-        raise HTTPError.new(response)
+        raise HTTPError.new("Error performing HTTP request: #{response.status_code} #{response.reason}", response)
       end
     end
 
     def parse_arguments(args)
       [args[:query_string], jsonify_body(args[:body])]
+    end
+
+    def with_error_handling(&block)
+      block.call
+    rescue HTTPError => e
+      raise e
+    rescue Errno::ECONNREFUSED
+      raise HTTPError.new("Connection refused to #{host}")
     end
 
     def jsonify_body(string_or_hash)
