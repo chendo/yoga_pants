@@ -10,7 +10,13 @@ module YogaPants
 
     attr_accessor :host
 
-    class HTTPError < RuntimeError; end
+    class HTTPError < RuntimeError
+      attr_reader :response
+      def initialize(response)
+        @response = response
+        super("Error performing HTTP request: #{response.status_code} #{response.reason}")
+      end
+    end
 
     def initialize(host, options = {})
       @host = host
@@ -55,7 +61,7 @@ module YogaPants
       when 200..299
         MultiJson.load(response.body)
       else
-        raise HTTPError.new("Error performing HTTP request: #{response.status_code} #{response.reason}")
+        raise HTTPError.new(response)
       end
     end
 
@@ -71,7 +77,7 @@ module YogaPants
       when String
         string_or_hash
       else
-        raise HTTPError.new("Unrecognised body class #{string_or_hash.class}")
+        raise ArgumentError.new("Unrecognised body class #{string_or_hash.class}")
       end
     end
 
