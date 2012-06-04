@@ -56,7 +56,7 @@ module YogaPants
   describe "network-related failures" do
     let(:host) { "http://localhost:9200" }
     subject do
-      Client.new(host)
+      Client.new(host, :connection => {:connect_timeout => 0.01})
     end
 
     context "connection refused" do
@@ -64,6 +64,14 @@ module YogaPants
 
       it "raises an RequestError" do
         expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection refused to http://localhost:1")
+      end
+    end
+
+    context "connection timed out" do
+      let(:host) { "http://192.168.34.58" } # Ewww but yeah.
+
+      it "raises an RequestError" do
+        expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection timed out to #{host}")
       end
     end
 

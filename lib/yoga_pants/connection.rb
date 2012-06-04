@@ -8,7 +8,7 @@ module YogaPants
     # TODO: Use https://github.com/rubiii/httpi so we don't have to deal
     # with interfacing with multiple HTTP libraries
 
-    attr_accessor :host
+    attr_accessor :host, :options
 
     class HTTPError < RuntimeError
       attr_reader :response
@@ -29,7 +29,13 @@ module YogaPants
 
     def initialize(host, options = {})
       @host = host
+      @options = options || {}
       @http = HTTPClient.new
+
+      default_timeout      = @options[:timeout] || 5
+      http.connect_timeout = @options[:connect_timeout] || default_timeout
+      http.send_timeout    = @options[:send_timeout] || default_timeout
+      http.receive_timeout = @options[:receive_timeout] || default_timeout
     end
 
     # Body can be a string or hash
@@ -95,6 +101,12 @@ module YogaPants
       raise e
     rescue Errno::ECONNREFUSED
       raise HTTPError.new("Connection refused to #{host}")
+    rescue HTTPClient::ConnectTimeoutError
+      raise HTTPError.new("Connection timed out to #{host}")
+    rescue HTTPClient::SendTimeoutError
+      raise HTTPError.new("Request send timed out to #{host}")
+    rescue HTTPClient::ReceiveTimeoutError
+      raise HTTPError.new("Receive timed out from #{host}")
     end
 
     def jsonify_body(string_or_hash)
