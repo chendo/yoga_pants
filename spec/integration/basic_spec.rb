@@ -12,7 +12,7 @@ describe "basic tests" do
       subject.delete("/yoga_pants_test")
     end
     subject.post("/yoga_pants_test")
-    subject.put("/yoga_pants_test/doc/_mapping", {}, {
+    subject.put("/yoga_pants_test/doc/_mapping", :body => {
       :doc => {
         :properties => {
            :foo => {:type => 'string'}
@@ -22,7 +22,7 @@ describe "basic tests" do
   end
 
   it "indexing a document" do
-    subject.post("/yoga_pants_test/doc/1", {}, {
+    subject.post("/yoga_pants_test/doc/1", :body => {
       :foo => 'bar'
     })
     subject.get("/yoga_pants_test/doc/1").should == {

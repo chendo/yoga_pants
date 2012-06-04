@@ -18,32 +18,33 @@ module YogaPants
     end
 
     # Body can be a string or hash
-    def get(path, query_string = {}, body = nil)
-      body = jsonify_body(body)
+
+    def get(path, args = {})
+      query_string, body = parse_arguments(args)
       response = http.get(url_for(path), :query => query_string, :body => body)
       parse_and_handle_response(response)
     end
 
-    def post(path, query_string = {}, body = nil)
-      body = jsonify_body(body)
+    def post(path, args = {})
+      query_string, body = parse_arguments(args)
       response = http.post(url_for(path), :query => query_string, :body => body)
       parse_and_handle_response(response)
     end
 
-    def put(path, query_string = {}, body = nil)
-      body = jsonify_body(body)
+    def put(path, args = {})
+      query_string, body = parse_arguments(args)
       response = http.put(url_for(path), :query => query_string, :body => body)
       parse_and_handle_response(response)
-
     end
 
-    def delete(path, query_string = {}, body = nil)
-      body = jsonify_body(body)
+    def delete(path, args = {})
+      query_string, body = parse_arguments(args)
       response = http.delete(url_for(path), :query => query_string, :body => body)
       parse_and_handle_response(response)
     end
 
-    def head(path, query_string = {})
+    def head(path, args = {})
+      query_string, _ = parse_arguments(args)
       http.head(url_for(path), :query => query_string)
     end
 
@@ -57,6 +58,10 @@ module YogaPants
         pp response
         raise HTTPError.new("Error performing HTTP request: #{response.status_code} #{response.reason}")
       end
+    end
+
+    def parse_arguments(args)
+      [args[:query_string], jsonify_body(args[:body])]
     end
 
     def jsonify_body(string_or_hash)

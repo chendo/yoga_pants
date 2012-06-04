@@ -13,24 +13,24 @@ module YogaPants
       @options = options
     end
 
-    def get(path, query_string = {}, body = nil)
-      connection.get(path, query_string, body)
+    def get(path, args = {})
+      connection.get(path, args)
     end
 
-    def post(path, query_string = {}, body = nil)
-      connection.post(path, query_string, body)
+    def post(path, args = {})
+      connection.post(path, args)
     end
 
-    def put(path, query_string = {}, body = nil)
-      connection.put(path, query_string, body)
+    def put(path, args = {})
+      connection.put(path, args)
     end
 
-    def delete(path, query_string = {}, body = nil)
-      connection.delete(path, query_string, body)
+    def delete(path, args = {})
+      connection.delete(path, args)
     end
 
-    def exists?(path, query_string = {})
-      connection.head(path, query_string).status_code == 200
+    def exists?(path, args = {})
+      connection.head(path, args).status_code == 200
     end
 
     private
