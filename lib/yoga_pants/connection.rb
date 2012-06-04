@@ -107,6 +107,8 @@ module YogaPants
       raise HTTPError.new("Request send timed out to #{host}")
     rescue HTTPClient::ReceiveTimeoutError
       raise HTTPError.new("Receive timed out from #{host}")
+    rescue => e
+      raise HTTPError.new("Unhandled exception within YogaPants::Connection: #{e} - #{e.message}")
     end
 
     def jsonify_body(string_or_hash)
