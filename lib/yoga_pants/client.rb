@@ -6,6 +6,15 @@ module YogaPants
     #   * failing over to nodes in a list
     #   * ES-specific error handling
 
+    class RequestError < RuntimeError
+      attr_reader :http_error
+
+      def initialize(message, http_error = nil)
+        @http_error = nil
+        super(message)
+      end
+    end
+
     attr_accessor :host, :options
 
     def initialize(host, options = {})
@@ -14,29 +23,48 @@ module YogaPants
     end
 
     def get(path, args = {})
-      connection.get(path, args)
+      with_error_handling do
+        connection.get(path, args)
+      end
     end
 
     def post(path, args = {})
-      connection.post(path, args)
+      with_error_handling do
+        connection.post(path, args)
     end
 
     def put(path, args = {})
-      connection.put(path, args)
+      with_error_handling do
+        connection.put(path, args)
+      end
     end
 
     def delete(path, args = {})
-      connection.delete(path, args)
+      with_error_handling do
+        connection.delete(path, args)
+      end
     end
 
     def exists?(path, args = {})
-      connection.head(path, args).status_code == 200
+      with_error_handling do
+        connection.head(path, args).status_code == 200
+      end
     end
 
     private
 
     def connection
       @connection ||= Connection.new(host, options[:connection])
+    end
+
+    def with_error_handling(&block)
+      block.call
+    rescue Connection::HTTPError => e
+      if e.body.is_a?(Hash) && error = e.body['error']
+        raise RequestError.new(error, e)
+      else
+        raise RequestError.new(e.message, e)
+      end
     end
   end
 end

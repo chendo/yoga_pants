@@ -16,6 +16,14 @@ module YogaPants
         @response = response
         super("Error performing HTTP request: #{response.status_code} #{response.reason}")
       end
+
+      def body
+        @body ||= begin
+          MultiJson.load(response.body)
+        rescue MultiJson::DecodeError
+          response.body
+        end
+      end
     end
 
     def initialize(host, options = {})
