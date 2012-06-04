@@ -14,4 +14,10 @@ Gem::Specification.new do |gem|
   gem.name          = "yoga_pants"
   gem.require_paths = ["lib"]
   gem.version       = YogaPants::VERSION
+
+  gem.add_runtime_dependency 'httpclient', '2.2.5'
+  gem.add_runtime_dependency 'multi_json', '1.3.6'
+
+  gem.add_development_dependency 'rspec'
+
 end
