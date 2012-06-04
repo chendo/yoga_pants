@@ -31,6 +31,7 @@ module YogaPants
     def post(path, args = {})
       with_error_handling do
         connection.post(path, args)
+      end
     end
 
     def put(path, args = {})

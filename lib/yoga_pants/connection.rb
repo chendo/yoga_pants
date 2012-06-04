@@ -34,27 +34,27 @@ module YogaPants
     # Body can be a string or hash
 
     def get(path, args = {})
-      query_string, body = parse_arguments(args)
-      response = http.get(url_for(path), :query => query_string, :body => body)
-      parse_and_handle_response(response)
+      parse_arguments_and_handle_response(args) do |query_string, body|
+        http.get(url_for(path), :query => query_string, :body => body)
+      end
     end
 
     def post(path, args = {})
-      query_string, body = parse_arguments(args)
-      response = http.post(url_for(path), :query => query_string, :body => body)
-      parse_and_handle_response(response)
+      parse_arguments_and_handle_response(args) do |query_string, body|
+        response = http.post(url_for(path), :query => query_string, :body => body)
+      end
     end
 
     def put(path, args = {})
-      query_string, body = parse_arguments(args)
-      response = http.put(url_for(path), :query => query_string, :body => body)
-      parse_and_handle_response(response)
+      parse_arguments_and_handle_response(args) do |query_string, body|
+        response = http.put(url_for(path), :query => query_string, :body => body)
+      end
     end
 
     def delete(path, args = {})
-      query_string, body = parse_arguments(args)
-      response = http.delete(url_for(path), :query => query_string, :body => body)
-      parse_and_handle_response(response)
+      parse_arguments_and_handle_response(args) do |query_string, body|
+        response = http.delete(url_for(path), :query => query_string, :body => body)
+      end
     end
 
     def head(path, args = {})
@@ -63,6 +63,13 @@ module YogaPants
     end
 
     private
+
+    def parse_arguments_and_handle_response(args, &block)
+      query_string, body = parse_arguments(args)
+      parse_and_handle_response(
+        block.call(query_string, body)
+      )
+    end
 
     def parse_and_handle_response(response)
       case response.status_code
