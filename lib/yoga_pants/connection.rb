@@ -28,7 +28,7 @@ module YogaPants
     end
 
     def initialize(host, options = {})
-      @host = host
+      @host = host.chomp('/')
       @options = options || {}
       @http = HTTPClient.new
 
@@ -128,7 +128,7 @@ module YogaPants
     end
 
     def url_for(path)
-      [host, path].join("/")
+      "#{host}#{path}"
     end
   end
 end
