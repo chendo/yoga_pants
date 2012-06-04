@@ -35,7 +35,11 @@ describe "basic tests" do
     }
   end
 
-  it "fails for a broken request" do
-    expect { subject.get("/this_does_not_exist") }.to raise_error(YogaPants::Connection::HTTPError)
+  it "fails on missing documents" do
+    expect { subject.get("/yoga_pants_test/doc/not_exist") }.should raise_error(YogaPants::Connection::HTTPError, "Error performing HTTP request: 404 Not Found")
+  end
+
+  it "fails for an invalid request" do
+    expect { subject.get("/this_does_not_exist") }.to raise_error(YogaPants::Connection::HTTPError, "Error performing HTTP request: 400 Bad Request")
   end
 end
