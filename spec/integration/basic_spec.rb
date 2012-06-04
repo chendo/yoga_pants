@@ -19,7 +19,7 @@ describe "basic tests" do
     })
   end
 
-  it "indexing a document" do
+  it "indexes a valid document" do
     subject.post("/yoga_pants_test/doc/1", :body => {
       :foo => 'bar'
     })
@@ -35,11 +35,12 @@ describe "basic tests" do
     }
   end
 
-  it "fails on missing documents" do
+  it "raises an exception on missing documents" do
     expect { subject.get("/yoga_pants_test/doc/not_exist") }.should raise_error(YogaPants::Connection::HTTPError, "Error performing HTTP request: 404 Not Found")
   end
 
-  it "fails for an invalid request" do
+  it "raises an exception on an invalid request" do
     expect { subject.get("/this_does_not_exist") }.to raise_error(YogaPants::Connection::HTTPError, "Error performing HTTP request: 400 Bad Request")
   end
+
 end
