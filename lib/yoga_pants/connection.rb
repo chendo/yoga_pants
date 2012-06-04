@@ -55,7 +55,6 @@ module YogaPants
       when 200..299
         MultiJson.load(response.body)
       else
-        pp response
         raise HTTPError.new("Error performing HTTP request: #{response.status_code} #{response.reason}")
       end
     end

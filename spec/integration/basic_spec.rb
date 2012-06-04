@@ -1,6 +1,4 @@
 require "yoga_pants/client"
-$DEBUG = true
-require 'pp'
 
 describe "basic tests" do
   subject do
@@ -37,11 +35,7 @@ describe "basic tests" do
     }
   end
 
-  it "works for a real item" do
-    subject.get("/3docean.net/item/51708")
-  end
-
   it "fails for a broken request" do
-    expect { subject.get("/baloeuaoeu") }.to raise_error(YogaPants::Connection::HTTPError)
+    expect { subject.get("/this_does_not_exist") }.to raise_error(YogaPants::Connection::HTTPError)
   end
 end
