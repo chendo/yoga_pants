@@ -1,5 +1,5 @@
 require 'httpclient'
-require 'multi_json'
+require_relative 'json'
 
 module YogaPants
   class Connection
@@ -20,7 +20,7 @@ module YogaPants
       def body
         return nil if response.nil?
         @body ||= begin
-          MultiJson.load(response.body)
+          JSON.load(response.body)
         rescue MultiJson::DecodeError
           response.body
         end
@@ -85,7 +85,7 @@ module YogaPants
     def parse_and_handle_response(response)
       case response.status_code
       when 200..299
-        MultiJson.load(response.body)
+        JSON.load(response.body)
       else
         raise HTTPError.new("Error performing HTTP request: #{response.status_code} #{response.reason}", response)
       end
@@ -115,7 +115,7 @@ module YogaPants
       return nil if string_or_hash.nil?
       case string_or_hash
       when Hash
-        MultiJson.dump(string_or_hash)
+        JSON.dump(string_or_hash)
       when String
         string_or_hash
       else
