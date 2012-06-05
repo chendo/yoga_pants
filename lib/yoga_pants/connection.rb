@@ -108,7 +108,7 @@ module YogaPants
     rescue HTTPClient::ReceiveTimeoutError
       raise HTTPError.new("Receive timed out from #{host}")
     rescue => e
-      raise HTTPError.new("Unhandled exception within YogaPants::Connection: #{e} - #{e.message}")
+      raise HTTPError.new("Unhandled exception within YogaPants::Connection: #{e} - #{e.message}").tap { |ex| ex.set_backtrace(e.backtrace) }
     end
 
     def jsonify_body(string_or_hash)

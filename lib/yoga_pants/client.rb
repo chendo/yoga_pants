@@ -62,9 +62,9 @@ module YogaPants
       block.call
     rescue Connection::HTTPError => e
       if e.body.is_a?(Hash) && error = e.body['error']
-        raise RequestError.new(error, e)
+        raise RequestError.new("ElasticSearch Error: #{error}", e).tap { |ex| ex.set_backtrace(e.backtrace) }
       else
-        raise RequestError.new(e.message, e)
+        raise RequestError.new(e.message, e).tap { |ex| ex.set_backtrace(e.backtrace) }
       end
     end
   end
