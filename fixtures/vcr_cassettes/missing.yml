@@ -1,0 +1,25 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://localhost:9200/yoga_pants_test/doc/not_exist
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: {}
+
+  response: 
+    status: 
+      code: 404
+      message: Not Found
+    headers: 
+      Content-Type: 
+      - application/json; charset=UTF-8
+      Content-Length: 
+      - "75"
+    body: 
+      encoding: US-ASCII
+      string: "{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"not_exist\",\"exists\":false}"
+    http_version: 
+  recorded_at: Tue, 05 Jun 2012 07:21:10 GMT
+recorded_with: VCR 2.2.0
