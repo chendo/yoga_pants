@@ -1,4 +1,3 @@
-require_relative "connection"
 module YogaPants
   class Client
     # This class will handle:

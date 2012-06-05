@@ -1,6 +1,3 @@
-require 'httpclient'
-require_relative 'json'
-
 module YogaPants
   class Connection
     # This class is/will be an abstraction layer for the underlying

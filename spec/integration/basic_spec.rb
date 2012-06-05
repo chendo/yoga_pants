@@ -1,5 +1,4 @@
 require "spec_helper"
-require "yoga_pants/client"
 
 module YogaPants
   describe "basic integration tests" do
