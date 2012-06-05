@@ -128,7 +128,7 @@ module YogaPants
     end
 
     def url_for(path)
-      if path.starts_with?("/")
+      if path[0] == "/"
         "#{host}#{path}"
       else
         "#{host}/#{path}"
