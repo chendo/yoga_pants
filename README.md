@@ -11,6 +11,17 @@ A lightweight ElasticSearch ruby gem.
 * Handle a list of servers and fallback to other ones
 * A solid base to build more complex ES libraries on top of.
 
+## Ruby compatibility
+
+* 1.8.7
+* 1.9.2
+* 1.9.3
+* rbx-18mode
+* rbx-19mode
+* ree
+
+JRuby will probably be supported down the track when I allow other HTTP libraries since it's failing due to httpclient wanting openssl.
+
 ## Build status
 
 [![Build Status](https://secure.travis-ci.org/chendo/yoga_pants.png)](http://travis-ci.org/chendo/yoga_pants)
