@@ -47,7 +47,19 @@ module YogaPants
 
     def exists?(path, args = {})
       with_error_handling do
-        connection.head(path, args).status_code == 200
+        begin
+          if path.count("/") >= 3 # More than
+            connection.get(path, args)
+          else
+            connection.head(path).status_code == 200
+          end
+        rescue Connection::HTTPError => e
+          if e.status_code == 404
+            false
+          else
+            raise e
+          end
+        end
       end
     end
 
