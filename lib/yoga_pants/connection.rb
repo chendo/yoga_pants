@@ -8,10 +8,15 @@ module YogaPants
     attr_accessor :host, :options
 
     class HTTPError < RuntimeError
-      attr_reader :response
+      attr_reader :response, :status_code
       def initialize(message, response = nil)
-        @response = response
-        super(message)
+        @response    = response
+        if response
+          @status_code = response.status_code
+          super(message + "\nBody: #{response.body}")
+        else
+          super(message)
+        end
       end
 
       def body
