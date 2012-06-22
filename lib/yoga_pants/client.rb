@@ -63,6 +63,10 @@ module YogaPants
       end
     end
 
+    def reset
+      connection.reset
+    end
+
     private
 
     def connection

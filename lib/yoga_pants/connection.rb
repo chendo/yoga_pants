@@ -70,6 +70,10 @@ module YogaPants
       end
     end
 
+    def reset
+      http.reset_all
+    end
+
     private
 
     def parse_arguments_and_handle_response(args, &block)
