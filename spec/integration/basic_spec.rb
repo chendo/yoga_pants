@@ -42,13 +42,13 @@ module YogaPants
 
     it "raises an exception on missing documents" do
       VCR.use_cassette('missing') do
-        expect { subject.get("/yoga_pants_test/doc/not_exist") }.should raise_error(Client::RequestError, "Error performing HTTP request: 404 Not Found")
+        expect { subject.get("/yoga_pants_test/doc/not_exist") }.should raise_error(Client::RequestError, "Error performing HTTP request: 404 Not Found\nBody: #{'{"_index":"yoga_pants_test","_type":"doc","_id":"not_exist","exists":false}'}")
       end
     end
 
     it "raises an exception on an invalid request" do
       VCR.use_cassette('invalid_request') do
-        expect { subject.get("/this_does_not_exist") }.to raise_error(Client::RequestError, "Error performing HTTP request: 400 Bad Request")
+        expect { subject.get("/this_does_not_exist") }.to raise_error(Client::RequestError, "Error performing HTTP request: 400 Bad Request\nBody: No handler found for uri [/this_does_not_exist] and method [GET]")
       end
     end
 
