@@ -1,14 +1,14 @@
 --- 
-recorded_with: VCR 2.2.0
 http_interactions: 
 - request: 
     method: post
     uri: http://localhost:9200/_bulk/_bulk?refresh
     body: 
+      encoding: UTF-8
       string: |
-        {"index":{"_id":2,"_type":"doc","_index":"yoga_pants_test"}}
+        {"index":{"_index":"yoga_pants_test","_type":"doc","_id":2}}
         {"foo":"hello bulk"}
-        {"index":{"_id":2,"_type":"doc2","_index":"yoga_pants_test_1"}}
+        {"index":{"_index":"yoga_pants_test_1","_type":"doc2","_id":2}}
         {"foo":"hello bulk 2"}
 
     headers: 
@@ -24,13 +24,15 @@ http_interactions:
       Content-Length: 
       - "196"
     body: 
-      string: "{\"took\":73,\"items\":[{\"index\":{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"2\",\"_version\":1,\"ok\":true}},{\"index\":{\"_index\":\"yoga_pants_test_1\",\"_type\":\"doc2\",\"_id\":\"2\",\"_version\":1,\"ok\":true}}]}"
+      encoding: US-ASCII
+      string: "{\"took\":72,\"items\":[{\"index\":{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"2\",\"_version\":1,\"ok\":true}},{\"index\":{\"_index\":\"yoga_pants_test_1\",\"_type\":\"doc2\",\"_id\":\"2\",\"_version\":1,\"ok\":true}}]}"
     http_version: 
-  recorded_at: Mon, 25 Jun 2012 04:39:34 GMT
+  recorded_at: Mon, 25 Jun 2012 08:14:09 GMT
 - request: 
     method: get
     uri: http://localhost:9200/yoga_pants_test/doc/2
     body: 
+      encoding: US-ASCII
       string: ""
     headers: {}
 
@@ -44,13 +46,15 @@ http_interactions:
       Content-Length: 
       - "113"
     body: 
+      encoding: US-ASCII
       string: "{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"2\",\"_version\":1,\"exists\":true, \"_source\" : {\"foo\":\"hello bulk\"}}"
     http_version: 
-  recorded_at: Mon, 25 Jun 2012 04:39:34 GMT
+  recorded_at: Mon, 25 Jun 2012 08:14:09 GMT
 - request: 
     method: get
     uri: http://localhost:9200/yoga_pants_test_1/doc2/2
     body: 
+      encoding: US-ASCII
       string: ""
     headers: {}
 
@@ -64,6 +68,8 @@ http_interactions:
       Content-Length: 
       - "118"
     body: 
+      encoding: US-ASCII
       string: "{\"_index\":\"yoga_pants_test_1\",\"_type\":\"doc2\",\"_id\":\"2\",\"_version\":1,\"exists\":true, \"_source\" : {\"foo\":\"hello bulk 2\"}}"
     http_version: 
-  recorded_at: Mon, 25 Jun 2012 04:39:34 GMT
+  recorded_at: Mon, 25 Jun 2012 08:14:09 GMT
+recorded_with: VCR 2.2.0
