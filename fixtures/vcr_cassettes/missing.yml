@@ -1,10 +1,10 @@
 --- 
+recorded_with: VCR 2.2.0
 http_interactions: 
 - request: 
     method: get
     uri: http://localhost:9200/yoga_pants_test/doc/not_exist
     body: 
-      encoding: US-ASCII
       string: ""
     headers: {}
 
@@ -18,8 +18,6 @@ http_interactions:
       Content-Length: 
       - "75"
     body: 
-      encoding: US-ASCII
       string: "{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"not_exist\",\"exists\":false}"
     http_version: 
-  recorded_at: Tue, 05 Jun 2012 07:21:10 GMT
-recorded_with: VCR 2.2.0
+  recorded_at: Mon, 25 Jun 2012 04:39:34 GMT
