@@ -145,5 +145,14 @@ module YogaPants
       end
     end
 
+    describe "no working hosts" do
+      let(:hosts) { ["http://localhost:1/", "http://localhost:2/"] }
+      it "throws an exception" do
+        expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, /Connection refused to/)
+      end
+    end
+
+
+
   end
 end
