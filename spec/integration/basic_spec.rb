@@ -124,6 +124,15 @@ module YogaPants
         end
       end
     end
+  end
 
+  describe "failing over to other nodes" do
+    subject do
+      Client.new(["http://localhost:9323/", "http://localhost:9200/"])
+    end
+
+    it "automatically fails over on connection refused" do
+      subject.exists?("/foo").should == false
+    end
   end
 end

@@ -14,11 +14,19 @@ module YogaPants
       end
     end
 
-    attr_accessor :host, :options
+    attr_accessor :hosts, :options, :active_host
 
-    def initialize(host, options = {})
-      @host = host
-      @options = options
+    def initialize(hosts, options = {})
+      @hosts       = [hosts].flatten.freeze # Accept 1 or more hosts
+      @options     = options
+      @max_retries = options[:max_retries] || 10
+      @retries     = 0
+      reset_hosts
+    end
+
+    def reset_hosts
+      @active_hosts = hosts.dup
+      @active_host = @active_hosts.shift
     end
 
     def get(path, args = {})
@@ -91,13 +99,26 @@ module YogaPants
     private
 
     def connection
-      @connection ||= Connection.new(host, options[:connection])
+      @connection ||= Connection.new(active_host, options[:connection])
+    end
+
+    def pick_next_host
+      @active_host = @active_hosts.shift
+      @connection = nil
+      reset_hosts if active_host.nil?
     end
 
     def with_error_handling(&block)
-      block.call
+      block.call.tap do
+        @retries = 0
+      end
     rescue Connection::HTTPError => e
-      if e.body.is_a?(Hash) && error = e.body['error']
+
+      if @retries <= @max_retries
+        @retries += 1
+        pick_next_host
+        retry
+      elsif e.body.is_a?(Hash) && error = e.body['error']
         raise RequestError.new("ElasticSearch Error: #{error}", e).tap { |ex| ex.set_backtrace(e.backtrace) }
       else
         raise RequestError.new(e.message, e).tap { |ex| ex.set_backtrace(e.backtrace) }
