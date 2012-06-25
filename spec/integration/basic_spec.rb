@@ -128,11 +128,22 @@ module YogaPants
 
   describe "failing over to other nodes" do
     subject do
-      Client.new(["http://localhost:9323/", "http://localhost:9200/"])
+      Client.new(hosts)
     end
 
-    it "automatically fails over on connection refused" do
-      subject.exists?("/foo").should == false
+    describe "connection refused on first node" do
+      let(:hosts) { ["http://localhost:1/", "http://localhost:9200/"] }
+      it "automatically fails over" do
+        subject.exists?("/foo").should == false
+      end
     end
+
+    describe "connection timed out on first node" do
+      let(:hosts) { ["http://10.13.37.3:1/", "http://localhost:9200/"] }
+      it "automatically fails over" do
+        subject.exists?("/foo").should == false
+      end
+    end
+
   end
 end
