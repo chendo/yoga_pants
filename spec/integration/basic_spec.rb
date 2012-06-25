@@ -134,21 +134,27 @@ module YogaPants
     describe "connection refused on first node" do
       let(:hosts) { ["http://localhost:1/", "http://localhost:9200/"] }
       it "automatically fails over" do
-        subject.exists?("/foo").should == false
+        VCR.use_cassette('failover_refused') do
+          subject.exists?("/foo").should == false
+        end
       end
     end
 
     describe "connection timed out on first node" do
       let(:hosts) { ["http://10.13.37.3:1/", "http://localhost:9200/"] }
       it "automatically fails over" do
-        subject.exists?("/foo").should == false
+        VCR.use_cassette('failover_timeout') do
+          subject.exists?("/foo").should == false
+        end
       end
     end
 
     describe "no working hosts" do
       let(:hosts) { ["http://localhost:1/", "http://localhost:2/"] }
       it "throws an exception" do
-        expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, /Connection refused to/)
+        VCR.use_cassette('failover_impossible') do
+          expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, /Connection refused to/)
+        end
       end
     end
 
