@@ -51,20 +51,26 @@ module YogaPants
     end
 
     def post(path, args = {})
-      parse_arguments_and_handle_response(args) do |query_string, body|
-        response = http.post(url_for(path), :query => query_string, :body => body)
+      with_error_handling do
+        parse_arguments_and_handle_response(args) do |query_string, body|
+          response = http.post(url_for(path), :query => query_string, :body => body)
+        end
       end
     end
 
     def put(path, args = {})
-      parse_arguments_and_handle_response(args) do |query_string, body|
-        response = http.put(url_for(path), :query => query_string, :body => body)
+      with_error_handling do
+        parse_arguments_and_handle_response(args) do |query_string, body|
+          response = http.put(url_for(path), :query => query_string, :body => body)
+        end
       end
     end
 
     def delete(path, args = {})
-      parse_arguments_and_handle_response(args) do |query_string, body|
-        response = http.delete(url_for(path), :query => query_string, :body => body)
+      with_error_handling do
+        parse_arguments_and_handle_response(args) do |query_string, body|
+          response = http.delete(url_for(path), :query => query_string, :body => body)
+        end
       end
     end
 
