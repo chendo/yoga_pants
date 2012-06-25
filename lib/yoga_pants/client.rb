@@ -45,6 +45,27 @@ module YogaPants
       end
     end
 
+    BULK_OPERATIONS_WITH_DATA = [:index, :create].freeze
+    def bulk(path, operations, args = {})
+      path.gsub!(%r{/?(?:_bulk)?$}, '/_bulk')
+
+      with_error_handling do
+        payload = StringIO.new
+
+        operations.each do |action, metadata, data|
+          payload << JSON.dump({action => metadata})
+          payload << "\n"
+          if BULK_OPERATIONS_WITH_DATA.include?(action.to_sym)
+            payload << JSON.dump(data)
+            payload << "\n"
+          end
+        end
+
+        payload.rewind
+        connection.post(path, :query_string => args, :body => payload.read)
+      end
+    end
+
     def exists?(path, args = {})
       with_error_handling do
         begin

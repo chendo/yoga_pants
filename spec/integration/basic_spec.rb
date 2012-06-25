@@ -6,11 +6,16 @@ module YogaPants
       Client.new("http://localhost:9200/")
     end
 
-    before(:all) do
+    before do
       VCR.use_cassette('before_block') do
         if subject.exists?("/yoga_pants_test")
           subject.delete("/yoga_pants_test")
         end
+
+        if subject.exists?("/yoga_pants_test_1")
+          subject.delete("/yoga_pants_test_1")
+        end
+
         subject.post("/yoga_pants_test")
         subject.put("/yoga_pants_test/doc/_mapping", :body => {
           :doc => {
@@ -19,6 +24,7 @@ module YogaPants
             }
           }
         })
+        subject.post("/yoga_pants_test/_refresh")
       end
     end
 
@@ -27,16 +33,46 @@ module YogaPants
         subject.post("/yoga_pants_test/doc/1", :body => {
           :foo => 'bar'
         })
-        subject.get("/yoga_pants_test/doc/1").should == {
+        subject.get("/yoga_pants_test/doc/1").should include({
           '_index' => 'yoga_pants_test',
           '_type' => 'doc',
           '_id' => '1',
-          '_version' => 1,
           'exists' => true,
           '_source' => {
             'foo' => 'bar'
           }
-        }
+        })
+      end
+    end
+
+    describe "bulk operations" do
+      it 'does bulk operations just fine' do
+        VCR.use_cassette('bulk') do
+          subject.bulk("/", [
+            [:index, {:_index => 'yoga_pants_test', :_type => 'doc', :_id => 2}, {:foo => 'hello bulk'}],
+            [:index, {:_index => 'yoga_pants_test_1', :_type => 'doc2', :_id => 2}, {:foo => 'hello bulk 2'}]
+          ], :refresh => true)
+
+          subject.get("/yoga_pants_test/doc/2").should include({
+            '_index' => 'yoga_pants_test',
+            '_type' => 'doc',
+            '_id' => '2',
+            'exists' => true,
+            '_source' => {
+              'foo' => 'hello bulk'
+            }
+          })
+
+          subject.get("/yoga_pants_test_1/doc2/2").should include({
+            '_index' => 'yoga_pants_test_1',
+            '_type' => 'doc2',
+            '_id' => '2',
+            'exists' => true,
+            '_source' => {
+              'foo' => 'hello bulk 2'
+            }
+          })
+        end
       end
     end
 
