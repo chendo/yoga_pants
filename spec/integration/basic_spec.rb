@@ -78,7 +78,7 @@ module YogaPants
 
     it "raises an exception on missing documents" do
       VCR.use_cassette('missing') do
-        expect { subject.get("/yoga_pants_test/doc/not_exist") }.should raise_error(Client::RequestError, "Error performing HTTP request: 404 Not Found\nBody: #{'{"_index":"yoga_pants_test","_type":"doc","_id":"not_exist","exists":false}'}")
+        expect { subject.get("/yoga_pants_test/doc/not_exist") }.to raise_error(Client::RequestError, "Error performing HTTP request: 404 Not Found\nBody: #{'{"_index":"yoga_pants_test","_type":"doc","_id":"not_exist","exists":false}'}")
       end
     end
 
