@@ -20,7 +20,8 @@ module YogaPants
         subject.put("/yoga_pants_test/doc/_mapping", :body => {
           :doc => {
             :properties => {
-               :foo => {:type => 'string'}
+               :foo => {:type => 'string'},
+               :bar => {:type => 'integer'}
             }
           }
         })
@@ -72,6 +73,34 @@ module YogaPants
               'foo' => 'hello bulk 2'
             }
           })
+        end
+      end
+
+      it 'does not break on per-document index errors' do
+        VCR.use_cassette('bulk_document_index_error') do
+          ret = subject.bulk("/", [
+            [:index, {:_index => 'yoga_pants_test', :_type => 'doc', :_id => 1}, {:bar => 1}],
+            [:index, {:_index => 'yoga_pants_test', :_type => 'doc', :_id => 2}, {:bar => 'invalid'}],
+          ])
+          errors = ret['items'].select { |operation| operation['index']['error'] }
+          errors.length.should == 1
+          errors.first["index"]["_id"].should == '2'
+          subject.exists?("/yoga_pants_test/doc/1").should be_true
+          subject.exists?("/yoga_pants_test/doc/2").should be_false
+        end
+      end
+
+      it 'throws an exception when ES barfs' do
+        VCR.use_cassette('bulk_error') do
+          expect do
+            subject.bulk("/", [
+              [:index, {:_index => 'yoga_pants_test', :_type => 'doc', :_id => 1}, {:bar => 1}],
+              [:index, {:_index => '', :_type => 'doc', :_id => 2}, {:bar => 'invalid'}],
+            ])
+          end.to raise_error(Client::RequestError, "ElasticSearch Error: ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; ")
+
+          subject.exists?("/yoga_pants_test/doc/1").should be_false
+          subject.exists?("/yoga_pants_test/doc/2").should be_false
         end
       end
     end
@@ -157,8 +186,5 @@ module YogaPants
         end
       end
     end
-
-
-
   end
 end
