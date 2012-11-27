@@ -75,7 +75,7 @@ module YogaPants
     end
 
     def multi_search(path, operations, args={})
-      path = path.gsub(%r{/?(?:_msearch)?$}, '/_msearch')
+      path = path.sub(%r{/?(?:_msearch)?$}, '/_msearch')
 
       with_error_handling do
         payload = StringIO.new
