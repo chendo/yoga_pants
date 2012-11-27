@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9200/_msearch/_msearch?
+    body:
+      encoding: UTF-8
+      string: ! '{"index":"yoga_pants_test","type":"doc"}
+
+        {"query":{"match_all":{}}}
+
+        {"index":"yoga_pants_test_1","type":"doc2"}
+
+        {"query":{"match_all":{}}}
+
+'
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        NDUy
+    body:
+      encoding: US-ASCII
+      string: ! '{"responses":[{"took":1,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.0,"hits":[{"_index":"yoga_pants_test","_type":"doc","_id":"2","_score":1.0,
+        "_source" : {"title": "aaa"}}]}},{"took":1,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.0,"hits":[{"_index":"yoga_pants_test_1","_type":"doc2","_id":"2","_score":1.0,
+        "_source" : {"title": "bbb"}}]}}]}'
+    http_version: 
+  recorded_at: Tue, 14 Aug 2012 15:37:56 GMT
+recorded_with: VCR 2.2.4

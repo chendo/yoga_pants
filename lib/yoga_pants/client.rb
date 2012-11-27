@@ -74,6 +74,22 @@ module YogaPants
       end
     end
 
+    def multi_search(path, operations, args={})
+      path = path.gsub(%r{/?(?:_msearch)?$}, '/_msearch')
+
+      with_error_handling do
+        payload = StringIO.new
+
+        operations.each do |header, body|
+          payload << JSON.dump(header) << "\n"
+          payload << JSON.dump(body) << "\n"
+        end
+
+        payload.rewind
+        connection.get(path, :query_string => args, :body => payload.read)
+      end
+    end
+
     def exists?(path, args = {})
       with_error_handling do
         begin
