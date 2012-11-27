@@ -3,12 +3,11 @@ require File.expand_path('../lib/yoga_pants/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Jack Chen (chendo)"]
-  gem.email         = ["yoga_pants@chen.do"]
   gem.description   = %q{A super lightweight interface to ElasticSearch's HTTP REST API}
   gem.summary       = <<-TEXT.strip
     A super lightweight interface to ElasticSearch's HTTP REST API.
   TEXT
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/chendo/yoga_pants"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
