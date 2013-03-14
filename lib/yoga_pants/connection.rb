@@ -33,6 +33,7 @@ module YogaPants
       @host = host.chomp('/')
       @options = options || {}
       @http = HTTPClient.new
+      @http.debug_dev = @options[:debug_io] if @options[:debug_io].respond_to?(:<<)
 
       default_timeout      = @options[:timeout] || 5
       http.connect_timeout = @options[:connect_timeout] || default_timeout
