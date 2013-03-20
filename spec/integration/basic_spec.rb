@@ -97,7 +97,7 @@ module YogaPants
               [:index, {:_index => 'yoga_pants_test', :_type => 'doc', :_id => 1}, {:bar => 1}],
               [:index, {:_index => '', :_type => 'doc', :_id => 2}, {:bar => 'invalid'}],
             ])
-          end.to raise_error(Client::RequestError, "ElasticSearch Error: ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; ")
+          end.to raise_error(Client::ElasticSearchError, "ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; ")
 
           subject.exists?("/yoga_pants_test/doc/1").should be_false
           subject.exists?("/yoga_pants_test/doc/2").should be_false
@@ -137,7 +137,7 @@ module YogaPants
         subject.post("/yoga_pants_test/doc/1", :body => {
           :foo => 'bar'
         })
-        expect { subject.get("/yoga_pants_test/doc/1/_mlt?min_term_freq=invalid") }.to raise_error(Client::RequestError, "ElasticSearch Error: Failed to parse int parameter [min_term_freq] with value [invalid]")
+        expect { subject.get("/yoga_pants_test/doc/1/_mlt?min_term_freq=invalid") }.to raise_error(Client::ElasticSearchError, "Failed to parse int parameter [min_term_freq] with value [invalid]")
       end
     end
 
@@ -154,7 +154,7 @@ module YogaPants
 
       it "raises an RequestError" do
         VCR.use_cassette('connection_refused') do
-          expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection refused to http://localhost:1")
+          expect { subject.exists?("/foo") }.to raise_error(Client::HTTPRequestError, "Connection refused to http://localhost:1")
         end
       end
     end

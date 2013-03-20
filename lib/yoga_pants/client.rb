@@ -5,15 +5,6 @@ module YogaPants
     #   * failing over to nodes in a list
     #   * ES-specific error handling
 
-    class RequestError < RuntimeError
-      attr_reader :http_error
-
-      def initialize(message, http_error = nil)
-        @http_error = nil
-        super(message)
-      end
-    end
-
     attr_accessor :hosts, :options, :active_host
 
     def initialize(hosts, options = {})
@@ -114,6 +105,38 @@ module YogaPants
       connection.reset
     end
 
+    class RequestError < RuntimeError; end
+
+    class HTTPRequestError < RequestError
+      attr_reader :http_error
+
+      def initialize(message, http_error)
+        super(message)
+        @http_error = http_error
+      end
+    end
+
+    class ElasticSearchError < RequestError
+      attr_reader :elasticsearch_exception_name
+      attr_reader :elasticsearch_exception_details
+
+      def initialize(elasticsearch_error_message, original_exception)
+        super(elasticsearch_error_message)
+        set_backtrace(original_exception.backtrace)
+        parse_and_set_elasticsearch_error_message(elasticsearch_error_message)
+      end
+
+      def parse_and_set_elasticsearch_error_message(message)
+        if message =~ /(\w+)\[(.+)\]/m
+          @elasticsearch_exception_name = $1
+          @elasticsearch_exception_details = $2
+        else
+          @elasticsearch_exception_name = message
+        end
+      end
+
+    end
+
     private
 
     def connection
@@ -136,10 +159,10 @@ module YogaPants
         @retries += 1
         pick_next_host
         retry
-      elsif e.body.is_a?(Hash) && error = e.body['error']
-        raise RequestError.new("ElasticSearch Error: #{error}", e).tap { |ex| ex.set_backtrace(e.backtrace) }
+      elsif e.body.is_a?(Hash) && error_message = e.body['error']
+        raise ElasticSearchError.new(error_message, e)
       else
-        raise RequestError.new(e.message, e).tap { |ex| ex.set_backtrace(e.backtrace) }
+        raise HTTPRequestError.new(e.message, e)
       end
     end
   end
