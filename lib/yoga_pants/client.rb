@@ -55,6 +55,8 @@ module YogaPants
 
     BULK_OPERATIONS_WITH_DATA = [:index, :create].freeze
     def bulk(path, operations, args = {})
+      return [] if operations.empty?
+
       path = path.sub(%r{/(?:_bulk)?$}, '/_bulk')
 
       with_error_handling do
