@@ -1,5 +1,9 @@
 # Changelog
 
+# v0.1.1
+
+- ElasticSearch errors now have their own exceptions
+
 # v0.1.0
 
 - Added multi_search (thanks to @dhotson)
