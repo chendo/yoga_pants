@@ -91,7 +91,7 @@ module YogaPants
           else
             connection.head(path).status_code == 200
           end
-        rescue Connection::HTTPError => e
+        rescue Transport::HTTP::HTTPError => e
           if e.status_code == 404
             false
           else
@@ -140,7 +140,7 @@ module YogaPants
     private
 
     def connection
-      @connection ||= Connection.new(active_host, options[:connection])
+      @connection ||= Transport::HTTP.new(active_host, options[:connection])
     end
 
     def pick_next_host
@@ -153,7 +153,7 @@ module YogaPants
       block.call.tap do
         @retries = 0
       end
-    rescue Connection::HTTPError => e
+    rescue Transport::HTTP::HTTPError => e
 
       if @retries <= @max_retries
         @retries += 1

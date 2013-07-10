@@ -1,69 +1,112 @@
---- 
-recorded_with: VCR 2.2.0
-http_interactions: 
-- request: 
+---
+http_interactions:
+- request:
     method: post
     uri: http://localhost:9200/_bulk?refresh
-    body: 
-      string: |
-        {"index":{"_id":2,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_id":2,"_type":"doc","_index":"yoga_pants_test"}}
+
         {"foo":"hello bulk"}
+
         {"index":{"_id":2,"_type":"doc2","_index":"yoga_pants_test_1"}}
+
         {"foo":"hello bulk 2"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Content-Type: 
+    headers:
+      Content-Type:
       - application/json; charset=UTF-8
-      Content-Length: 
-      - "196"
-    body: 
-      string: "{\"took\":41,\"items\":[{\"index\":{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"2\",\"_version\":1,\"ok\":true}},{\"index\":{\"_index\":\"yoga_pants_test_1\",\"_type\":\"doc2\",\"_id\":\"2\",\"_version\":1,\"ok\":true}}]}"
+      Content-Length:
+      - '196'
+    body:
+      encoding: UTF-8
+      string: ! '{"took":41,"items":[{"index":{"_index":"yoga_pants_test","_type":"doc","_id":"2","_version":1,"ok":true}},{"index":{"_index":"yoga_pants_test_1","_type":"doc2","_id":"2","_version":1,"ok":true}}]}'
     http_version: 
   recorded_at: Wed, 29 Aug 2012 07:04:31 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:9200/yoga_pants_test/doc/2
-    body: 
-      string: ""
+    body:
+      encoding: UTF-8
+      string: ''
     headers: {}
-
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Content-Type: 
+    headers:
+      Content-Type:
       - application/json; charset=UTF-8
-      Content-Length: 
-      - "113"
-    body: 
-      string: "{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"2\",\"_version\":1,\"exists\":true, \"_source\" : {\"foo\":\"hello bulk\"}}"
+      Content-Length:
+      - '113'
+    body:
+      encoding: UTF-8
+      string: ! '{"_index":"yoga_pants_test","_type":"doc","_id":"2","_version":1,"exists":true,
+        "_source" : {"foo":"hello bulk"}}'
     http_version: 
   recorded_at: Wed, 29 Aug 2012 07:04:31 GMT
-- request: 
+- request:
     method: get
     uri: http://localhost:9200/yoga_pants_test_1/doc2/2
-    body: 
-      string: ""
+    body:
+      encoding: UTF-8
+      string: ''
     headers: {}
-
-  response: 
-    status: 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      Content-Type: 
+    headers:
+      Content-Type:
       - application/json; charset=UTF-8
-      Content-Length: 
-      - "118"
-    body: 
-      string: "{\"_index\":\"yoga_pants_test_1\",\"_type\":\"doc2\",\"_id\":\"2\",\"_version\":1,\"exists\":true, \"_source\" : {\"foo\":\"hello bulk 2\"}}"
+      Content-Length:
+      - '118'
+    body:
+      encoding: UTF-8
+      string: ! '{"_index":"yoga_pants_test_1","_type":"doc2","_id":"2","_version":1,"exists":true,
+        "_source" : {"foo":"hello bulk 2"}}'
     http_version: 
   recorded_at: Wed, 29 Aug 2012 07:04:31 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":2}}
+
+        {"foo":"hello bulk"}
+
+        {"index":{"_index":"yoga_pants_test_1","_type":"doc2","_id":2}}
+
+        {"foo":"hello bulk 2"}
+
+'
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTk3
+    body:
+      encoding: US-ASCII
+      string: ! '{"took":272,"items":[{"index":{"_index":"yoga_pants_test","_type":"doc","_id":"2","_version":1,"ok":true}},{"index":{"_index":"yoga_pants_test_1","_type":"doc2","_id":"2","_version":1,"ok":true}}]}'
+    http_version: 
+  recorded_at: Wed, 10 Jul 2013 04:28:01 GMT
+recorded_with: VCR 2.2.0
