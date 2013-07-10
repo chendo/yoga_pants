@@ -1,7 +1,7 @@
 module YogaPants
   class Transport
     class Base
-      def initialize(host, options = {})
+      def initialize(uri, options = {})
         raise NotImplementedError
       end
 

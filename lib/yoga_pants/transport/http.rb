@@ -30,8 +30,8 @@ module YogaPants
         end
       end
 
-      def initialize(host, options = {})
-        @host = host.chomp('/')
+      def initialize(uri, options = {})
+        @host = "http://#{uri.host}:#{uri.port}"
         @options = options || {}
         @http = HTTPClient.new
         @http.debug_dev = @options[:debug_io] if @options[:debug_io].respond_to?(:<<)
@@ -126,5 +126,7 @@ module YogaPants
         end
       end
     end
+
+    Transport.register_transport(HTTP, 'http')
   end
 end

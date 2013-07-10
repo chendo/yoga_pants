@@ -131,7 +131,11 @@ module YogaPants
     private
 
     def connection
-      @connection ||= Transport::HTTP.new(active_host, options[:connection])
+      @connection ||= build_transport_for(active_host, options[:connection])
+    end
+
+    def build_transport_for(host, options = {})
+      Transport.transport_for(active_host, options)
     end
 
     def pick_next_host

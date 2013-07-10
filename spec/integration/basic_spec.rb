@@ -164,7 +164,7 @@ module YogaPants
 
       it "raises an RequestError" do
         VCR.use_cassette('timed_out') do
-          expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection timed out to #{host}")
+          expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection timed out to #{host}:80")
         end
       end
     end
