@@ -8,7 +8,7 @@ module YogaPants
 
       attr_accessor :host, :options
 
-      class HTTPError < RuntimeError
+      class HTTPError < TransportError
         attr_reader :response, :status_code
         def initialize(message, response = nil)
           @response    = response
