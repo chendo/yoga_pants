@@ -89,13 +89,6 @@ module YogaPants
 
       private
 
-      def parse_arguments_and_handle_response(args, &block)
-        query_string, body = parse_arguments(args)
-        parse_and_handle_response(
-          block.call(query_string, body)
-        )
-      end
-
       def parse_and_handle_response(response)
         case response.status_code
         when 200..299
@@ -103,10 +96,6 @@ module YogaPants
         else
           raise HTTPError.new("Error performing HTTP request: #{response.status_code} #{response.reason}", response)
         end
-      end
-
-      def parse_arguments(args)
-        [args[:query_string], jsonify_body(args[:body])]
       end
 
       def with_error_handling(&block)
@@ -123,18 +112,6 @@ module YogaPants
         raise HTTPError.new("Receive timed out from #{host}")
       rescue => e
         raise HTTPError.new("Unhandled exception within YogaPants::Connection: #{e} - #{e.message}").tap { |ex| ex.set_backtrace(e.backtrace) }
-      end
-
-      def jsonify_body(string_or_hash)
-        return nil if string_or_hash.nil?
-        case string_or_hash
-        when Hash
-          JSON.dump(string_or_hash)
-        when String
-          string_or_hash
-        else
-          raise ArgumentError.new("Unrecognised body class #{string_or_hash.class}")
-        end
       end
 
       def http
