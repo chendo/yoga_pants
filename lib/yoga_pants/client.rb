@@ -107,15 +107,6 @@ module YogaPants
 
     class RequestError < RuntimeError; end
 
-    class HTTPRequestError < RequestError
-      attr_reader :http_error
-
-      def initialize(message, http_error)
-        super(message)
-        @http_error = http_error
-      end
-    end
-
     class ElasticSearchError < RequestError
       attr_reader :elasticsearch_exception_name
       attr_reader :elasticsearch_exception_details
@@ -162,7 +153,7 @@ module YogaPants
       elsif e.body.is_a?(Hash) && error_message = e.body['error']
         raise ElasticSearchError.new(error_message, e)
       else
-        raise HTTPRequestError.new(e.message, e)
+        raise RequestError.new(e)
       end
     end
   end

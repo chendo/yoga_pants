@@ -154,7 +154,7 @@ module YogaPants
 
       it "raises an RequestError" do
         VCR.use_cassette('connection_refused') do
-          expect { subject.exists?("/foo") }.to raise_error(Client::HTTPRequestError, "Connection refused to http://localhost:1")
+          expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection refused to http://localhost:1")
         end
       end
     end
