@@ -1,6 +1,6 @@
 module YogaPants
   class Transport
-    class HTTP
+    class HTTP < Base
       # This class is/will be an abstraction layer for the underlying
       # HTTP client.
       # TODO: Use https://github.com/rubiii/httpi so we don't have to deal

@@ -4,4 +4,5 @@ module YogaPants
     class TransportError < RuntimeError; end
   end
 end
+require 'base'
 require 'http'
