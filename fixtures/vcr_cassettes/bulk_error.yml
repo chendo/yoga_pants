@@ -1,355 +1,471 @@
---- 
-http_interactions: 
-- request: 
+---
+http_interactions:
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:09 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:09 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:09 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:09 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:09 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:09 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:09 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:09 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:10 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:10 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:10 GMT
-- request: 
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:57 GMT
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_id":1,"_type":"doc","_index":"yoga_pants_test"}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
-        {"index":{"_id":2,"_type":"doc","_index":""}}
+
+        {"index":{"_index":"","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 500
-      message: Internal Server Error
-    headers: 
-      Content-Length: 
-      - "150"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"error\":\"ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; \",\"status\":500}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:10 GMT
-- request: 
-    method: get
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MTUw
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"ElasticSearchException[String index out of range: 0]; nested:
+        StringIndexOutOfBoundsException[String index out of range: 0]; ","status":500}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:57 GMT
+- request:
+    method: head
     uri: http://localhost:9200/yoga_pants_test/doc/1
-    body: 
-      string: ""
+    body:
+      encoding: US-ASCII
+      string: ''
     headers: {}
-
-  response: 
-    status: 
+  response:
+    status:
       code: 404
-      message: Not Found
-    headers: 
-      Content-Length: 
-      - "67"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"1\",\"exists\":false}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:10 GMT
-- request: 
-    method: get
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        dGV4dC9wbGFpbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MA==
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:57 GMT
+- request:
+    method: head
     uri: http://localhost:9200/yoga_pants_test/doc/2
-    body: 
-      string: ""
+    body:
+      encoding: US-ASCII
+      string: ''
     headers: {}
-
-  response: 
-    status: 
+  response:
+    status:
       code: 404
-      message: Not Found
-    headers: 
-      Content-Length: 
-      - "67"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"2\",\"exists\":false}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 07:04:10 GMT
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        dGV4dC9wbGFpbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MA==
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:26:39 GMT
 recorded_with: VCR 2.2.0

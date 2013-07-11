@@ -1,69 +1,87 @@
---- 
-recorded_with: VCR 2.2.0
-http_interactions: 
-- request: 
+---
+http_interactions:
+- request:
     method: post
     uri: http://localhost:9200/_bulk?
-    body: 
-      string: |
-        {"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+    body:
+      encoding: UTF-8
+      string: ! '{"index":{"_index":"yoga_pants_test","_type":"doc","_id":1}}
+
         {"bar":1}
+
         {"index":{"_index":"yoga_pants_test","_type":"doc","_id":2}}
+
         {"bar":"invalid"}
 
-    headers: 
-      Content-Type: 
+'
+    headers:
+      Content-Type:
       - application/x-www-form-urlencoded
-  response: 
-    status: 
+  response:
+    status:
       code: 200
-      message: OK
-    headers: 
-      Content-Length: 
-      - "289"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"took\":1,\"items\":[{\"index\":{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"1\",\"_version\":2,\"ok\":true}},{\"index\":{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"2\",\"error\":\"MapperParsingException[Failed to parse [bar]]; nested: NumberFormatException[For input string: \\\"invalid\\\"]; \"}}]}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 06:55:05 GMT
-- request: 
-    method: get
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        Mjg5
+    body:
+      encoding: US-ASCII
+      string: ! '{"took":1,"items":[{"index":{"_index":"yoga_pants_test","_type":"doc","_id":"1","_version":3,"ok":true}},{"index":{"_index":"yoga_pants_test","_type":"doc","_id":"2","error":"MapperParsingException[failed
+        to parse [bar]]; nested: NumberFormatException[For input string: \"invalid\"];
+        "}}]}'
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
+    method: head
     uri: http://localhost:9200/yoga_pants_test/doc/1
-    body: 
-      string: ""
+    body:
+      encoding: US-ASCII
+      string: ''
     headers: {}
-
-  response: 
-    status: 
+  response:
+    status:
       code: 200
-      message: OK
-    headers: 
-      Content-Length: 
-      - "102"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"1\",\"_version\":2,\"exists\":true, \"_source\" : {\"bar\":1}}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 06:55:05 GMT
-- request: 
-    method: get
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        dGV4dC9wbGFpbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MA==
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+- request:
+    method: head
     uri: http://localhost:9200/yoga_pants_test/doc/2
-    body: 
-      string: ""
+    body:
+      encoding: US-ASCII
+      string: ''
     headers: {}
-
-  response: 
-    status: 
+  response:
+    status:
       code: 404
-      message: Not Found
-    headers: 
-      Content-Length: 
-      - "67"
-      Content-Type: 
-      - application/json; charset=UTF-8
-    body: 
-      string: "{\"_index\":\"yoga_pants_test\",\"_type\":\"doc\",\"_id\":\"2\",\"exists\":false}"
-    http_version: 
-  recorded_at: Wed, 29 Aug 2012 06:55:05 GMT
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        dGV4dC9wbGFpbjsgY2hhcnNldD1VVEYtOA==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MA==
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version:
+  recorded_at: Thu, 11 Jul 2013 04:22:56 GMT
+recorded_with: VCR 2.2.0
