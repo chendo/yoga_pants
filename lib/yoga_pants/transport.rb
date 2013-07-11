@@ -2,7 +2,23 @@ $LOAD_PATH << File.dirname(__FILE__) + "/transport"
 require 'uri'
 module YogaPants
   class Transport
-    class TransportError < RuntimeError; end
+    class TransportError < RuntimeError
+      attr_reader :response, :status_code
+      def initialize(message, response = nil)
+        @response = response
+        super(message)
+      end
+
+      def body
+        return nil if response.nil?
+        @body ||= begin
+          JSON.load(response.body)
+        rescue MultiJson::DecodeError
+          response.body
+        end
+      end
+    end
+
     class TransportNotFound < ArgumentError; end
 
     def self.transport_for(url, options = {})

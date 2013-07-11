@@ -9,12 +9,10 @@ module YogaPants
       attr_accessor :host, :options
 
       class HTTPError < TransportError
-        attr_reader :response, :status_code
         def initialize(message, response = nil)
-          @response    = response
           if response
             @status_code = response.status_code
-            super(message + "\nBody: #{response.body}")
+            super(message + "\nBody: #{response.body}", response)
           else
             super(message)
           end
@@ -81,6 +79,10 @@ module YogaPants
           query_string, _ = parse_arguments(args)
           http.head(url_for(path), :query => query_string)
         end
+      end
+
+      def exists?(path, args = {})
+        head(path, args).status_code == 200
       end
 
       def reset

@@ -25,6 +25,10 @@ module YogaPants
         raise NotImplementedError
       end
 
+      def exists?(path, args = {})
+        raise NotImplementedError
+      end
+
       def reset
         raise NotImplementedError
       end
