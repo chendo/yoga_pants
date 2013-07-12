@@ -12,6 +12,7 @@ module YogaPants
       @options     = options
       @max_retries = options[:max_retries] || 10
       @retries     = 0
+      @mutex       = Mutex.new
       reset_hosts
     end
 
@@ -119,7 +120,9 @@ module YogaPants
     private
 
     def connection
-      @connection ||= build_transport_for(active_host, options[:connection])
+      @mutex.synchronize do
+        @connection ||= build_transport_for(active_host, options[:connection])
+      end
     end
 
     def build_transport_for(host, options = {})
@@ -127,9 +130,11 @@ module YogaPants
     end
 
     def pick_next_host
-      @active_host = @active_hosts.shift
-      @connection = nil
-      reset_hosts if active_host.nil?
+      @mutex.synchronize do
+        @active_host = @active_hosts.shift
+        @connection = nil
+        reset_hosts if active_host.nil?
+      end
     end
 
     def with_error_handling(&block)
