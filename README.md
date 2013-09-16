@@ -2,7 +2,7 @@
 
 A lightweight ElasticSearch ruby gem.
 
-## Goals
+## Features
 
 * Super light-weight, super flexible
 * No DSL for queries; only hashes
@@ -13,8 +13,6 @@ A lightweight ElasticSearch ruby gem.
 
 ## Ruby compatibility
 
-* 1.8.7
-* 1.9.2
 * 1.9.3
 * rbx-18mode
 * rbx-19mode
@@ -42,7 +40,43 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+
+client = YogaPants::Client.new("http://localhost:9200")
+
+client.post("staff/person/1", body: {
+  name: "John Smith",
+  age: 42
+})
+# => {"ok"=>true, "_index"=>"staff", "_type"=>"person", "_id"=>"1", "_version"=>1}
+
+john = client.get("staff/person/1")
+# => {"_index"=>"staff", "_type"=>"person", "_id"=>"1", "_version"=>1, "exists"=>true, "_source"=>
+#      {"name"=>"John Smith", "age"=>42}
+#    }
+
+# Bulk operations
+people = %w(Ben Joe Sue Mary)
+operations = []
+people.each do |person|
+  operations << [
+                  :index,            # Operation, can be :index, :create, :delete
+                  {_type: 'person'}, # Metadata
+                  {
+                    name: person     # Document data
+                  }
+                ]
+end
+client.bulk("staff/_bulk", operations)
+# =>
+# {"took"=>1, "items"=>[
+#   {"create"=>{"_index"=>"staff", "_type"=>"person", "_id"=>"4Eg1W20qSRKwXEb2oGQjyw", "_version"=>1, "ok"=>true}},
+#   {"create"=>{"_index"=>"staff", "_type"=>"person", "_id"=>"ejW8SDPuRzOxqABctV2vpQ", "_version"=>1, "ok"=>true}},
+#   {"create"=>{"_index"=>"staff", "_type"=>"person", "_id"=>"NEwb6uFiTYyH0S4j9niRAA", "_version"=>1, "ok"=>true}},
+#   {"create"=>{"_index"=>"staff", "_type"=>"person", "_id"=>"TOyfVcYnRH6JvqriO7HV7Q", "_version"=>1, "ok"=>true}}
+# ]}
+
+```
 
 ## Contributing
 
