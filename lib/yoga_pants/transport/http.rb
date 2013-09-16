@@ -6,7 +6,7 @@ module YogaPants
       # TODO: Use https://github.com/rubiii/httpi so we don't have to deal
       # with interfacing with multiple HTTP libraries
 
-      attr_accessor :host, :options
+      attr_accessor :url, :options
 
       class HTTPError < TransportError
         def initialize(message, response = nil)
@@ -28,8 +28,8 @@ module YogaPants
         end
       end
 
-      def initialize(uri, options = {})
-        @host = "http://#{uri.host}:#{uri.port}"
+      def initialize(url, options = {})
+        @url = url
         @options = options || {}
         @http = HTTPClient.new
         @http.debug_dev = @options[:debug_io] if @options[:debug_io].respond_to?(:<<)
@@ -105,13 +105,13 @@ module YogaPants
       rescue HTTPError => e
         raise e
       rescue Errno::ECONNREFUSED
-        raise HTTPError.new("Connection refused to #{host}")
+        raise HTTPError.new("Connection refused to #{url}")
       rescue HTTPClient::ConnectTimeoutError
-        raise HTTPError.new("Connection timed out to #{host}")
+        raise HTTPError.new("Connection timed out to #{url}")
       rescue HTTPClient::SendTimeoutError
-        raise HTTPError.new("Request send timed out to #{host}")
+        raise HTTPError.new("Request send timed out to #{url}")
       rescue HTTPClient::ReceiveTimeoutError
-        raise HTTPError.new("Receive timed out from #{host}")
+        raise HTTPError.new("Receive timed out from #{url}")
       rescue => e
         raise HTTPError.new("Unhandled exception within YogaPants::Connection: #{e} - #{e.message}").tap { |ex| ex.set_backtrace(e.backtrace) }
       end
@@ -122,9 +122,9 @@ module YogaPants
 
       def url_for(path)
         if path[0..0] == "/"
-          "#{host}#{path}"
+          "#{url}#{path}"
         else
-          "#{host}/#{path}"
+          "#{url}/#{path}"
         end
       end
     end

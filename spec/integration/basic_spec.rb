@@ -3,7 +3,7 @@ require "spec_helper"
 module YogaPants
   describe "basic integration tests" do
     subject do
-      Client.new("http://localhost:9200/")
+      Client.new("http://localhost:9200")
     end
 
     before do
@@ -77,7 +77,7 @@ module YogaPants
       end
 
       it 'does not break on per-document index errors' do
-        VCR.use_cassette('bulk_document_index_error') do
+        VCR.use_cassette('bulk_document_index_error', record: :new_episodes) do
           ret = subject.bulk("/", [
             [:index, {:_index => 'yoga_pants_test', :_type => 'doc', :_id => 1}, {:bar => 1}],
             [:index, {:_index => 'yoga_pants_test', :_type => 'doc', :_id => 2}, {:bar => 'invalid'}],
@@ -91,13 +91,13 @@ module YogaPants
       end
 
       it 'throws an exception when ES barfs' do
-        VCR.use_cassette('bulk_error') do
+        VCR.use_cassette('bulk_error', record: :new_episodes) do
           expect do
             subject.bulk("/", [
               [:index, {:_index => 'yoga_pants_test', :_type => 'doc', :_id => 1}, {:bar => 1}],
               [:index, {:_index => '', :_type => 'doc', :_id => 2}, {:bar => 'invalid'}],
             ])
-          end.to raise_error(Client::ElasticSearchError, "ElasticSearchException[String index out of range: 0]; nested: StringIndexOutOfBoundsException[String index out of range: 0]; ")
+          end.to raise_error(Client::ElasticSearchError, "StringIndexOutOfBoundsException[String index out of range: 0]")
 
           subject.exists?("/yoga_pants_test/doc/1").should be_false
           subject.exists?("/yoga_pants_test/doc/2").should be_false
@@ -164,7 +164,7 @@ module YogaPants
 
       it "raises an RequestError" do
         VCR.use_cassette('timed_out') do
-          expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection timed out to #{host}:80")
+          expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, "Connection timed out to #{host}")
         end
       end
     end
@@ -176,7 +176,7 @@ module YogaPants
     end
 
     describe "connection refused on first node" do
-      let(:hosts) { ["http://localhost:1/", "http://localhost:9200/"] }
+      let(:hosts) { ["http://localhost:1", "http://localhost:9200"] }
       it "automatically fails over" do
         VCR.use_cassette('failover_refused') do
           subject.exists?("/foo").should == false
@@ -185,7 +185,7 @@ module YogaPants
     end
 
     describe "connection timed out on first node" do
-      let(:hosts) { ["http://10.13.37.3:1/", "http://localhost:9200/"] }
+      let(:hosts) { ["http://10.13.37.3:1", "http://localhost:9200"] }
       it "automatically fails over" do
         VCR.use_cassette('failover_timeout') do
           subject.exists?("/foo").should == false
@@ -194,7 +194,7 @@ module YogaPants
     end
 
     describe "no working hosts" do
-      let(:hosts) { ["http://localhost:1/", "http://localhost:2/"] }
+      let(:hosts) { ["http://localhost:1", "http://localhost:2"] }
       it "throws an exception" do
         VCR.use_cassette('failover_impossible') do
           expect { subject.exists?("/foo") }.to raise_error(Client::RequestError, /Connection refused to/)
