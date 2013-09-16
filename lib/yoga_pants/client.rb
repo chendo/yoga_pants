@@ -126,7 +126,11 @@ module YogaPants
     end
 
     def build_transport_for(host, options = {})
-      Transport.transport_for(active_host, options)
+      Transport.transport_for(active_host, options) do |transport|
+        if options[:init_hook].is_a?(Proc)
+          options[:init_hook].call(transport)
+        end
+      end
     end
 
     def pick_next_host

@@ -21,13 +21,18 @@ module YogaPants
 
     class TransportNotFound < ArgumentError; end
 
-    def self.transport_for(url, options = {})
+    def self.transport_for(url, options = {}, &block)
       uri = URI(url)
       klass = @transports[uri.scheme]
       if klass.nil?
         raise TransportNotFound.new("No Transport found for scheme #{uri.scheme}")
       end
-      klass.new(uri, options)
+      klass.new(uri, options).tap do |transport|
+        if block_given?
+          block.call(transport)
+        end
+      end
+
     end
 
     def self.register_transport(klass, scheme)
