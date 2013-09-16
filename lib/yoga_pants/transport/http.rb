@@ -130,5 +130,6 @@ module YogaPants
     end
 
     Transport.register_transport(HTTP, 'http')
+    Transport.register_transport(HTTP, 'https')
   end
 end
