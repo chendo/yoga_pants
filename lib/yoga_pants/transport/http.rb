@@ -6,7 +6,7 @@ module YogaPants
       # TODO: Use https://github.com/rubiii/httpi so we don't have to deal
       # with interfacing with multiple HTTP libraries
 
-      attr_accessor :url, :options
+      attr_accessor :url, :options, :http
 
       class HTTPError < TransportError
         def initialize(message, response = nil)
@@ -114,10 +114,6 @@ module YogaPants
         raise HTTPError.new("Receive timed out from #{url}")
       rescue => e
         raise HTTPError.new("Unhandled exception within YogaPants::Connection: #{e} - #{e.message}").tap { |ex| ex.set_backtrace(e.backtrace) }
-      end
-
-      def http
-        @http
       end
 
       def url_for(path)
