@@ -32,7 +32,9 @@ module YogaPants
         @url = url
         @options = options || {}
         @http = HTTPClient.new
-        @http.debug_dev = @options[:debug_io] if @options[:debug_io].respond_to?(:<<)
+
+        http.debug_dev = @options[:debug_io] if @options[:debug_io].respond_to?(:<<)
+        http.set_auth(url, url.user, url.password)
 
         default_timeout      = @options[:timeout] || 5
         http.connect_timeout = @options[:connect_timeout] || default_timeout
