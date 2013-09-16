@@ -14,9 +14,8 @@ A lightweight ElasticSearch ruby gem.
 ## Ruby compatibility
 
 * 1.9.3
-* rbx-18mode
-* rbx-19mode
-* ree
+* 2.0.0
+* JRuby 1.7.4
 
 JRuby will probably be supported down the track when I allow other HTTP libraries since it's failing due to httpclient wanting openssl.
 
